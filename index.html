@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BioStitched Builder’s Guide</title>
+<meta name="description" content="BioStitched is a small, open-source CNC machine that automates tambour embroidery for designers who make in small batches. The Builder’s Guide covers the parts, files, steps and code.">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cellipse cx='32' cy='32' rx='26' ry='12' fill='%23F7E8EA' stroke='%23A3162B' stroke-width='5'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%23A3162B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <span class="brand-name">BioStitched</span>
+      <span class="brand-sub">Builder’s Guide</span>
+    </a>
+    <nav class="site-nav" aria-label="Sections">
+      <ul>
+        <li><a href="#machine">The machine</a></li>
+        <li><a href="#guide">Guide</a></li>
+        <li><a href="#parts">Parts</a></li>
+        <li><a href="#files">Files</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a class="btn btn--small" href="#guide">Open the guide</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="top">
+    <div class="wrap">
+      <div class="hero-copy">
+        <h1>Build the machine that stitches the sequins.</h1>
+        <p>BioStitched is a small, open-source CNC machine that automates tambour embroidery, the couture hand technique behind sequinned eveningwear, for designers who make in small batches. This guide covers everything you need to build one, change it and share what you learn.</p>
+        <div class="actions">
+          <a class="btn btn--lg" href="#guide">Open the guide</a>
+          <a class="link" href="#parts">See the parts list</a>
+        </div>
+      </div>
+      <figure>
+        <div class="graph">
+          <img src="sketch-top.png" width="1200" height="912" alt="Line drawing of the needle carriage on two guide rods, with the lead screw and stepper motor running to the right, seen from above">
+        </div>
+        <figcaption><span>Fig. 1. Top view without the frame</span><span>Prototype I technical sketch</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===== Status ===== -->
+  <section class="status" aria-label="Project status">
+    <div class="wrap">
+      <dl>
+        <div><dt>Prototype</dt><dd>II, in development</dd></div>
+        <div><dt>Working now</dt><dd>The full stitch cycle</dd></div>
+        <div><dt>Guide</dt><dd>Version 0.1, chapters in progress</dd></div>
+        <div><dt>Files</dt><dd>Release [DATE]</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ===== Why ===== -->
+  <section class="section" aria-labelledby="why-title">
+    <div class="wrap">
+      <h2 id="why-title">Why build your own?</h2>
+      <div class="why-grid">
+        <article>
+          <h3>Own the tool</h3>
+          <p>Embellished eveningwear fabric comes from industrial suppliers with minimum orders that small designers can’t meet. A machine you build yourself lets you make it in small batches.</p>
+        </article>
+        <article>
+          <h3>Change the materials</h3>
+          <p>Most prom and eveningwear embellishment is petroleum-based and hard to recycle. BioStitched is built around natural-fibre fabrics and biodegradable embellishments.</p>
+        </article>
+        <article>
+          <h3>Know the real cost</h3>
+          <p>Building your own tool moves cost into your own time. The guide records the hours, the failures and the fixes, so you can plan for them.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== The machine ===== -->
+  <section class="section" id="machine" aria-labelledby="machine-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="machine-title">How it stitches</h2>
+        <p class="lead">Tambour embroidery is a chain stitch worked from above the fabric with a hooked needle. Prototype II breaks the hand movement into six machine steps. Step through them, or press play.</p>
+      </div>
+
+      <div class="cycle">
+        <div class="stage graph" aria-hidden="true">
+          <span class="stage-tag tag-title">Prototype II stitch cycle</span>
+          <span class="stage-tag tag-scale">Diagram, not to scale</span>
+          <div class="needle" id="needle">
+            <div class="needle-shaft"></div>
+            <div class="needle-hook"></div>
+          </div>
+          <div class="magazine"></div>
+          <div class="sq sq-stack s1"></div>
+          <div class="sq sq-stack s2"></div>
+          <div class="sq sq-stack s3"></div>
+          <span class="stage-tag tag-magazine">Sequin magazine</span>
+          <span class="stage-tag tag-needle">Needle, face <span id="face-label">A</span></span>
+          <div class="chain"></div>
+          <div class="fabric"></div>
+          <span class="stage-tag tag-fabric">Fabric</span>
+          <div class="sq sq-trail t1"></div>
+          <div class="sq sq-trail t2"></div>
+          <div class="sq sq-trail t3"></div>
+          <div class="sq sq-live" id="sequin-live"></div>
+          <div class="bracket" data-length hidden></div>
+          <span class="bracket-label" data-length hidden>stitch length</span>
+        </div>
+
+        <div class="step-panel">
+          <div class="step-info" aria-live="polite">
+            <p class="step-label" id="step-label">Ready</p>
+            <h3 class="step-title" id="step-title">Ready</h3>
+            <p class="step-text" id="step-text">One sequin waits at the base of the magazine, lined up with the needle’s own axis.</p>
+            <p class="step-actor">Actuator: <strong id="step-actor">none yet</strong></p>
+          </div>
+          <div class="step-buttons">
+            <button class="step-btn" type="button" data-step="1" aria-pressed="false">01 Drop</button>
+            <button class="step-btn" type="button" data-step="2" aria-pressed="false">02 Pierce</button>
+            <button class="step-btn" type="button" data-step="3" aria-pressed="false">03 Rotate</button>
+            <button class="step-btn" type="button" data-step="4" aria-pressed="false">04 Retract</button>
+            <button class="step-btn" type="button" data-step="5" aria-pressed="false">05 Rotate back</button>
+            <button class="step-btn" type="button" data-step="6" aria-pressed="false">06 Advance</button>
+          </div>
+          <div class="controls">
+            <button class="btn" type="button" id="cycle-play">Play the cycle</button>
+            <button class="btn btn--ghost" type="button" id="cycle-next">Next step</button>
+            <button class="text-btn" type="button" id="cycle-reset">Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="figures">
+        <figure>
+          <div class="render"><img src="render-carriage.png" width="1088" height="544" loading="lazy" alt="Three Tinkercad renders of the needle carriage parts, including the servo mounts"></div>
+          <figcaption><span>Fig. 2. Needle carriage</span><span>Prototype I, Tinkercad render</span></figcaption>
+        </figure>
+        <figure>
+          <div class="render"><img src="render-side.png" width="1568" height="400" loading="lazy" alt="Tinkercad render of the machine from the side, showing the aluminium-profile frame and the gantry"></div>
+          <figcaption><span>Fig. 3. Side view</span><span>Prototype I, Tinkercad render</span></figcaption>
+        </figure>
+      </div>
+
+      <div class="spec-block">
+        <h3>Inside Prototype II</h3>
+        <dl class="spec">
+          <div><dt>Controller</dt><dd>Arduino Uno with CNC Shield V3</dd></div>
+          <div><dt>Motion</dt><dd>NEMA 17 stepper motors</dd></div>
+          <div><dt>Servos</dt><dd>Two MG996R and one SG90</dd></div>
+          <div><dt>Power</dt><dd>12 V supply for the steppers, 5 V UBEC for the servos</dd></div>
+          <div><dt>Firmware</dt><dd>Arduino sketches using AccelStepper; GRBL</dd></div>
+          <div><dt>Design</dt><dd>Tinkercad, Fusion 360 and Ink/Stitch</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== The guide ===== -->
+  <section class="section" id="guide" aria-labelledby="guide-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="label">Builder’s Guide, version 0.1</p>
+        <h2 id="guide-title">Fifteen chapters, from first principles to first stitch.</h2>
+        <p class="lead">Chapters are written and published as the build progresses. Open any chapter to see what it covers.</p>
+      </div>
+
+      <div class="chapters">
+        <details>
+          <summary><span class="ch-num">00</span><span><span class="ch-title">Introduction and project vision</span><span class="ch-desc">Why BioStitched exists, what the machine can and can’t do yet, and who this guide is for.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <ul class="ch-body">
+            <li><span>00.1</span><span>Why embellished eveningwear fabric is hard to source sustainably</span></li>
+            <li><span>00.2</span><span>Self-tooling and micro-manufacturing</span></li>
+            <li><span>00.3</span><span>What Prototype II does today</span></li>
+            <li><span>00.4</span><span>How to use this guide</span></li>
+          </ul>
+        </details>
+        <details>
+          <summary><span class="ch-num">01</span><span><span class="ch-title">Safety and setup</span><span class="ch-desc">Power, heat, sharp points and fumes, before anything gets plugged in.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <ul class="ch-body">
+            <li><span>01.1</span><span>12 V and 5 V: what powers what</span></li>
+            <li><span>01.2</span><span>Soldering and 3D-printing fumes</span></li>
+            <li><span>01.3</span><span>Needle and pinch points</span></li>
+            <li><span>01.4</span><span>Setting up a home workspace</span></li>
+          </ul>
+        </details>
+        <details>
+          <summary><span class="ch-num">02</span><span><span class="ch-title">Understanding tambour embroidery</span><span class="ch-desc">The hand technique the machine automates, from ari work in India to couture ateliers.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <ul class="ch-body">
+            <li><span>02.1</span><span>Ari, tambour and Lunéville work</span></li>
+            <li><span>02.2</span><span>The chain stitch, step by step</span></li>
+            <li><span>02.3</span><span>Face A and face B of the hook</span></li>
+            <li><span>02.4</span><span>Why it takes so many hours by hand</span></li>
+          </ul>
+        </details>
+        <details>
+          <summary><span class="ch-num">03</span><span><span class="ch-title">Machine overview</span><span class="ch-desc">How the frame, motion system, needle carriage and embellishment feed fit together.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <ul class="ch-body">
+            <li><span>03.1</span><span>The subsystems at a glance</span></li>
+            <li><span>03.2</span><span>The stitch cycle</span></li>
+            <li><span>03.3</span><span>From Prototype I to Prototype II</span></li>
+            <li><span>03.4</span><span>Renders and drawings</span></li>
+          </ul>
+        </details>
+        <details>
+          <summary><span class="ch-num">04</span><span><span class="ch-title">Bill of materials</span><span class="ch-desc">Every part, grouped by subsystem, with what each one does and what it costs.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <ul class="ch-body">
+            <li><span>04.1</span><span>Frame and motion</span></li>
+            <li><span>04.2</span><span>Electronics and power</span></li>
+            <li><span>04.3</span><span>Needle carriage and servos</span></li>
+            <li><span>04.4</span><span>Printed parts and embellishment feed</span></li>
+            <li><span>04.5</span><span>The true cost: tools, time and failed attempts</span></li>
+          </ul>
+        </details>
+        <details>
+          <summary><span class="ch-num">05</span><span><span class="ch-title">Tools and software setup</span><span class="ch-desc">The tools to have on the bench and the free software to install before you start.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <ul class="ch-body">
+            <li><span>05.1</span><span>3D printer and slicer</span></li>
+            <li><span>05.2</span><span>Soldering kit and multimeter</span></li>
+            <li><span>05.3</span><span>Arduino IDE, AccelStepper and GRBL</span></li>
+            <li><span>05.4</span><span>Tinkercad, Fusion 360 and Ink/Stitch</span></li>
+          </ul>
+        </details>
+        <details>
+          <summary><span class="ch-num">06</span><span><span class="ch-title">3D-printed parts library</span><span class="ch-desc">Every printed part, with print settings and the fit tolerances that make it work.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <ul class="ch-body">
+            <li><span>06.1</span><span>Print settings that work</span></li>
+            <li><span>06.2</span><span>Why printed holes come out small</span></li>
+            <li><span>06.3</span><span>Part-by-part list</span></li>
+            <li><span>06.4</span><span>Sending files to the printer</span></li>
+          </ul>
+        </details>
+        <details>
+          <summary><span class="ch-num">07</span><span><span class="ch-title">Step-by-step build</span><span class="ch-desc">Assembly in an order that lets you test each subsystem before you add the next.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <ul class="ch-body">
+            <li><span>07.1</span><span>Frame and motion</span></li>
+            <li><span>07.2</span><span>Wiring the controller</span></li>
+            <li><span>07.3</span><span>Needle carriage and servos</span></li>
+            <li><span>07.4</span><span>Embellishment feed</span></li>
+            <li><span>07.5</span><span>First power-on</span></li>
+          </ul>
+        </details>
+        <details>
+          <summary><span class="ch-num">08</span><span><span class="ch-title">Firmware and code</span><span class="ch-desc">The Arduino sketches that run the stitch cycle, explained line by line.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <ul class="ch-body">
+            <li><span>08.1</span><span>Setting up the Uno and CNC Shield</span></li>
+            <li><span>08.2</span><span>Moving the steppers</span></li>
+            <li><span>08.3</span><span>Servo timing for the stitch cycle</span></li>
+            <li><span>08.4</span><span>Fixing buzzing motors and brownouts</span></li>
+          </ul>
+        </details>
+        <details>
+          <summary><span class="ch-num">09</span><span><span class="ch-title">Design-to-stitch workflow</span><span class="ch-desc">Turning a drawing into a path the machine can stitch.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <ul class="ch-body">
+            <li><span>09.1</span><span>Drawing a design in Inkscape</span></li>
+            <li><span>09.2</span><span>Converting it with Ink/Stitch</span></li>
+            <li><span>09.3</span><span>Setting stitch length and sequin spacing</span></li>
+            <li><span>09.4</span><span>Running a test swatch</span></li>
+          </ul>
+        </details>
+        <details>
+          <summary><span class="ch-num">10</span><span><span class="ch-title">Embellishments: PHA and biomaterials</span><span class="ch-desc">Printing your own sequins and beads, and what ‘biodegradable’ actually means.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <ul class="ch-body">
+            <li><span>10.1</span><span>Printing sequins and beads in PHA</span></li>
+            <li><span>10.2</span><span>Choosing natural-fibre base fabrics</span></li>
+            <li><span>10.3</span><span>Claimed versus verified biodegradability</span></li>
+            <li><span>10.4</span><span>Loading the sequin magazine</span></li>
+          </ul>
+        </details>
+        <details>
+          <summary><span class="ch-num">11</span><span><span class="ch-title">G-code reference</span><span class="ch-desc">The commands the machine understands, with worked examples.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <ul class="ch-body">
+            <li><span>11.1</span><span>Units and positioning</span></li>
+            <li><span>11.2</span><span>Moves and pauses</span></li>
+            <li><span>11.3</span><span>Servo commands</span></li>
+            <li><span>11.4</span><span>A three-stitch example</span></li>
+          </ul>
+        </details>
+        <details>
+          <summary><span class="ch-num">12</span><span><span class="ch-title">Sketches and drawings</span><span class="ch-desc">Technical drawings and renders of every subsystem.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <ul class="ch-body">
+            <li><span>12.1</span><span>Top and side views</span></li>
+            <li><span>12.2</span><span>Needle carriage</span></li>
+            <li><span>12.3</span><span>Embellishment feed</span></li>
+            <li><span>12.4</span><span>Wiring diagram</span></li>
+          </ul>
+        </details>
+        <details>
+          <summary><span class="ch-num">13</span><span><span class="ch-title">Tutorials and references</span><span class="ch-desc">The tutorials, projects and reading this build learned from.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <ul class="ch-body">
+            <li><span>13.1</span><span>The CNC tutorial this build started from</span></li>
+            <li><span>13.2</span><span>Open-source hardware projects</span></li>
+            <li><span>13.3</span><span>Tambour and embroidery references</span></li>
+            <li><span>13.4</span><span>Further reading</span></li>
+          </ul>
+        </details>
+        <details>
+          <summary><span class="ch-num">14</span><span><span class="ch-title">Glossary</span><span class="ch-desc">Plain-language definitions of every technical term in the guide.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <ul class="ch-body">
+            <li><span>14.1</span><span>Electronics</span></li>
+            <li><span>14.2</span><span>Mechanics</span></li>
+            <li><span>14.3</span><span>Embroidery</span></li>
+            <li><span>14.4</span><span>Materials</span></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Parts ===== -->
+  <section class="section section--panel" id="parts" aria-labelledby="parts-title">
+    <div class="wrap">
+      <div class="parts-head">
+        <div class="section-head">
+          <p class="label">Bill of materials</p>
+          <h2 id="parts-title">Everything that goes into the machine.</h2>
+          <p class="lead">Tick parts off as you collect them; your ticks are saved in this browser. Quantities and costs are being confirmed against the build, and a fully costed list, including tools and failed attempts, ships with the guide.</p>
+        </div>
+        <div class="progress">
+          <div class="progress-row"><span>Collected</span><strong id="progress-text">0 of 36 ticked</strong></div>
+          <div class="bar" role="progressbar" aria-label="Parts collected" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progress-bar"></span></div>
+          <button class="text-btn" type="button" id="clear-ticks">Clear ticks</button>
+        </div>
+      </div>
+
+      <div class="groups">
+        <section class="group" data-group aria-labelledby="g-frame">
+          <header><h3 id="g-frame">Frame and motion</h3><span class="count" data-count></span></header>
+          <ul>
+            <li><label><input type="checkbox" data-part="frame-0"><span><span class="part-name">Aluminium profile 2040</span><span class="part-spec">400 mm</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="frame-1"><span><span class="part-name">Aluminium profile 2080</span><span class="part-spec">600 mm</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="frame-2"><span><span class="part-name">Aluminium profile 2080</span><span class="part-spec">200 mm</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="frame-3"><span><span class="part-name">Slot nuts</span><span class="part-spec">for 20-series profile</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="frame-4"><span><span class="part-name">M5 bolts and nuts</span><span class="part-spec">assorted set</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="frame-5"><span><span class="part-name">Lead screw TR8x2</span><span class="part-spec">400 mm, cut to length</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="frame-6"><span><span class="part-name">Lead screw TR8x2</span><span class="part-spec">200 mm, cut to length</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="frame-7"><span><span class="part-name">Lead screw TR8x2</span><span class="part-spec">600 mm, cut to length</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="frame-8"><span><span class="part-name">Aluminium round rail, 16 mm</span><span class="part-spec">length to confirm</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="frame-9"><span><span class="part-name">Aluminium round rail, 16 mm</span><span class="part-spec">200 mm, cut</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="frame-10"><span><span class="part-name">Aluminium round rod, 12 mm</span><span class="part-spec">200 mm</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="frame-11"><span><span class="part-name">Linear bearings, 16 mm</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="frame-12"><span><span class="part-name">Linear bearings, 12 mm</span><span class="part-spec">21 mm OD, 30 mm long</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="frame-13"><span><span class="part-name">Ball bearings 608</span><span class="part-spec">8 × 22 × 7 mm, lead-screw end supports</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="frame-14"><span><span class="part-name">Shaft couplings</span><span class="part-spec">motor shaft to 8 mm lead screw; check the bore</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="frame-15"><span><span class="part-name">NEMA 17 stepper motor</span></span><span class="qty">×3</span></label></li>
+          </ul>
+        </section>
+
+        <section class="group" data-group aria-labelledby="g-elec">
+          <header><h3 id="g-elec">Electronics and power</h3><span class="count" data-count></span></header>
+          <ul>
+            <li><label><input type="checkbox" data-part="elec-0"><span><span class="part-name">Arduino Uno</span></span><span class="qty">×1</span></label></li>
+            <li><label><input type="checkbox" data-part="elec-1"><span><span class="part-name">CNC Shield V3</span></span><span class="qty">×1</span></label></li>
+            <li><label><input type="checkbox" data-part="elec-2"><span><span class="part-name">Stepper drivers</span><span class="part-spec">A4988 or TMC2208</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="elec-3"><span><span class="part-name">Power supply</span><span class="part-spec">12 V, 5 A, for the steppers</span></span><span class="qty">×1</span></label></li>
+            <li><label><input type="checkbox" data-part="elec-4"><span><span class="part-name">UBEC</span><span class="part-spec">5 V, for the servos</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="elec-5"><span><span class="part-name">Capacitors</span><span class="part-spec">across the servo power rails</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="elec-6"><span><span class="part-name">Wiring, jumpers and connectors</span><span class="part-spec">Dupont leads and extensions</span></span><span class="qty"></span></label></li>
+          </ul>
+        </section>
+
+        <section class="group" data-group aria-labelledby="g-needle">
+          <header><h3 id="g-needle">Needle carriage and servos</h3><span class="count" data-count></span></header>
+          <ul>
+            <li><label><input type="checkbox" data-part="needle-0"><span><span class="part-name">Servo MG996R</span></span><span class="qty">×2</span></label></li>
+            <li><label><input type="checkbox" data-part="needle-1"><span><span class="part-name">Servo SG90</span></span><span class="qty">×1</span></label></li>
+            <li><label><input type="checkbox" data-part="needle-2"><span><span class="part-name">Stepper 28BYJ-48 with ULN2003 driver</span><span class="part-spec">thread-wrap mechanism</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="needle-3"><span><span class="part-name">Tambour hook</span></span><span class="qty">×1</span></label></li>
+            <li><label><input type="checkbox" data-part="needle-4"><span><span class="part-name">Thread-wrap parts</span><span class="part-spec">belt, idler pulleys, disc tensioner</span></span><span class="qty"></span></label></li>
+          </ul>
+        </section>
+
+        <section class="group" data-group aria-labelledby="g-printed">
+          <header><h3 id="g-printed">Printed parts and embellishment feed</h3><span class="count" data-count></span></header>
+          <ul>
+            <li><label><input type="checkbox" data-part="printed-0"><span><span class="part-name">3D-printed parts</span><span class="part-spec">full list in chapter 06</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="printed-1"><span><span class="part-name">Sequin magazine and escapement disc</span><span class="part-spec">printed</span></span><span class="qty"></span></label></li>
+          </ul>
+        </section>
+
+        <section class="group" data-group aria-labelledby="g-tools">
+          <header><h3 id="g-tools">Tools and software</h3><span class="count" data-count></span></header>
+          <ul>
+            <li><label><input type="checkbox" data-part="tools-0"><span><span class="part-name">3D printer</span><span class="part-spec">this build uses a Bambu Lab A1 mini</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="tools-1"><span><span class="part-name">Soldering kit</span><span class="part-spec">iron, solder and heat shrink</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="tools-2"><span><span class="part-name">Multimeter</span><span class="part-spec">for driver current and voltage checks</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="tools-3"><span><span class="part-name">Hand tools</span><span class="part-spec">screwdrivers, hex keys, wire strippers</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="tools-4"><span><span class="part-name">Filament</span><span class="part-spec">PLA for parts, PHA for embellishments</span></span><span class="qty"></span></label></li>
+            <li><label><input type="checkbox" data-part="tools-5"><span><span class="part-name">Software</span><span class="part-spec">Arduino IDE, AccelStepper, GRBL, Tinkercad, Inkscape with Ink/Stitch</span></span><span class="qty"></span></label></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Files ===== -->
+  <section class="section" id="files" aria-labelledby="files-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="files-title">Download, print, adapt.</h2>
+        <p class="lead">Every file you need to build, run and modify the machine is published with version 1.0 of the guide.</p>
+      </div>
+      <div class="files">
+        <article class="file">
+          <div class="tags"><span class="tag">PDF</span></div>
+          <h3>Builder’s Guide</h3>
+          <p>All fifteen chapters in one file, for printing or reading offline.</p>
+          <p class="when">Available with v1.0, [DATE]</p>
+        </article>
+        <article class="file">
+          <div class="tags"><span class="tag">STL</span><span class="tag">STEP</span></div>
+          <h3>3D-printable parts</h3>
+          <p>Every printed part, as STL files for slicing and STEP files for editing.</p>
+          <p class="when">Available with v1.0, [DATE]</p>
+        </article>
+        <article class="file">
+          <div class="tags"><span class="tag">INO</span></div>
+          <h3>Arduino code</h3>
+          <p>Sketches for the stitch cycle, stepper moves and servo timing.</p>
+          <p class="when">Available with v1.0, [DATE]</p>
+        </article>
+        <article class="file">
+          <div class="tags"><span class="tag">SVG</span><span class="tag">G-CODE</span></div>
+          <h3>Example designs</h3>
+          <p>Test patterns as Ink/Stitch files and ready-to-run G-code.</p>
+          <p class="when">Available with v1.0, [DATE]</p>
+        </article>
+      </div>
+      <p class="licences"><strong>Licences</strong><span>Hardware: [LICENCE]</span><span>Guide: [LICENCE]</span><span>Code: [LICENCE]</span></p>
+    </div>
+  </section>
+
+  <!-- ===== Before you start ===== -->
+  <section class="section" aria-labelledby="faq-title">
+    <div class="wrap">
+      <h2 id="faq-title">Before you start</h2>
+      <div class="faq">
+        <div>
+          <h3>Do I need an engineering background?</h3>
+          <p>No. The guide was written by a fashion designer who learned the electronics, 3D printing and code while building the machine, and it assumes you’re starting from the same place.</p>
+        </div>
+        <div>
+          <h3>What can the machine make?</h3>
+          <p>Small test swatches of chain-stitched, sequinned fabric. It’s a prototype for working out the technique, not yet a production machine.</p>
+        </div>
+        <div>
+          <h3>What will it cost me?</h3>
+          <p>The guide includes a fully costed parts list, plus the tools you need and the cost of the attempts that failed, so you can budget before you start. [COST SUMMARY]</p>
+        </div>
+        <div>
+          <h3>What materials does it use?</h3>
+          <p>Natural-fibre base fabrics and biodegradable embellishments, including sequins and beads 3D-printed in PHA. Where biodegradability is claimed but not yet tested, the guide says so.</p>
+        </div>
+        <div>
+          <h3>Do I need a workshop?</h3>
+          <p>A desk at home works. Prototype II is being built in a home studio with a 3D printer and a soldering kit; a makerspace or Fab Lab gives you access to the same tools.</p>
+        </div>
+        <div>
+          <h3>Can I change it and share it?</h3>
+          <p>Yes, that’s the point. Adapt the machine to your own practice, then share what you changed so the next builder starts further ahead.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== About ===== -->
+  <section class="section section--panel about" id="about" aria-labelledby="about-title">
+    <div class="wrap">
+      <h2 id="about-title">Made by a designer, for designers.</h2>
+      <div class="about-copy">
+        <p>BioStitched is designed and built by U’lia Hargrove, a prom and eveningwear designer, as part of an MA at London College of Fashion, University of the Arts London.</p>
+        <p>It started from a practical problem: the embellished fabric used for prom and eveningwear comes from industrial suppliers with minimum orders, in synthetic materials that are hard to recycle. Building the machine is the research: what it takes, in money, skills and time, for one designer to make their own tool.</p>
+        <p>Prototype I was built in the LCF Digital Learning Lab alongside a technician. Prototype II is being built in a home studio.</p>
+        <div class="actions">
+          <a class="btn" href="#guide">Open the guide</a>
+          <span>Get in touch: [EMAIL OR INSTAGRAM]</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <span class="footer-name">BioStitched</span>
+      <span class="footer-motto">Explore. Innovate. Prototype.</span>
+    </div>
+    <div class="footer-meta">
+      <span>Builder’s Guide, version 0.1</span>
+      <span>London College of Fashion, University of the Arts London</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
