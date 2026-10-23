@@ -6,33 +6,47 @@ The website for BioStitched, an open-source CNC tambour embroidery machine.
 
 - `index.html`: all the words on the page. Edit this to change text.
 - `styles.css`: colours, fonts and layout.
-- `script.js`: the stitch-cycle walkthrough and the parts checklist.
-- `sketch-top.png`, `render-carriage.png`, `render-side.png`: the images.
+- `script.js`: the stitch-cycle walkthrough, the test-code viewer and the blog links.
+- `prototype-2-render.png`, `sequin-drop-mechanism.png`: your renders.
+- `embellishments-all.png` and `emb-01` to `emb-06`: the embellishment render and the six shapes cut out of it.
+- `01_flash_test.ino` to `05_stitch_cycle.ino`: the Arduino test sketches.
 
-## Put it online with GitHub Pages
+## Update the live site
 
-1. Sign in to github.com, or create a free account.
-2. Create a new repository called `biostitched`. Make it **Public**.
-3. On the new repository’s page, choose **uploading an existing file**.
-4. Drag in every file from this folder, then click **Commit changes**.
-5. Go to **Settings**, then **Pages** in the left sidebar.
-6. Under **Build and deployment**, set the source to **Deploy from a branch**. Choose the `main` branch and the `/ (root)` folder, then click **Save**.
-7. Wait a minute or two, then refresh the page. Your site’s address appears at the top: `https://YOUR-USERNAME.github.io/biostitched/`
+1. In the repository, click **Add file**, then **Upload files**.
+2. Drag in every file from this folder and click **Commit changes**. Files with the same name replace the old ones.
+3. Delete the three old images: open `sketch-top.png`, click the **…** menu, choose **Delete file** and commit. Do the same for `render-carriage.png` and `render-side.png`.
+4. Wait a few minutes, then reload the site. If you still see the old version, hold Shift while you reload.
 
 ## Fill in the placeholders
 
-Open `index.html` and search for `[`. Replace each placeholder:
+Open `index.html` and search for `[`:
 
-- `[DATE]`: when the files will be released (appears five times)
+- `[DATE]`: when the files will be released
 - `[LICENCE]`: the licence for the hardware, the guide and the code
-- `[COST SUMMARY]`: the total cost to build, once you know it
+- `[COST SUMMARY]`: the total cost to build
 - `[EMAIL OR INSTAGRAM]`: how people can contact you
 
-## Change something later
+## Replace a placeholder image with your own photo
 
-Open the file on GitHub, click the pencil icon, make your change and click **Commit changes**. The live site updates within a few minutes.
+Upload your photo, then in `index.html` replace one whole `<div class="ph">…</div>` block with:
 
-## Notes
+    <div class="frame"><img src="your-photo.jpg" alt="Describe the photo"></div>
 
-- Ticks in the parts checklist are saved in each visitor’s own browser, so nobody sees anyone else’s.
-- Fonts load from Google Fonts.
+## Switch on a download in the Files section
+
+Upload the file, then change its button from
+
+    <a class="btn btn--ghost btn--small is-disabled" aria-disabled="true">Download coming soon</a>
+
+to
+
+    <a class="btn btn--ghost btn--small" href="your-file.stl" download>Download</a>
+
+For the embellishments, change each card’s `href` from the `.png` to the `.stl` file and the text from “Download preview” to “Download STL”.
+
+## Turn on the open blog
+
+1. In the repository, go to **Settings**, then **General**. Under **Features**, tick **Discussions**.
+2. The blog buttons on the site now open the build log (Discussions). Posts go in the **Show and tell** category, and people can attach photos, videos and code.
+3. Optional, to show posts on the website itself: install the giscus app from github.com/apps/giscus on this repository, then go to giscus.app, enter the repository, choose a category, and copy the `<script>` it gives you. Paste it into `index.html` where it says `GISCUS`.

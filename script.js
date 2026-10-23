@@ -1,4 +1,4 @@
-/* BioStitched Builder’s Guide: stitch-cycle walkthrough and parts checklist */
+/* BioStitched Builder’s Guide: stitch-cycle walkthrough, test code viewer and blog links */
 (function () {
   'use strict';
 
@@ -10,12 +10,12 @@
   // seqX / seqY: where the moving sequin sits; seqT: how it gets there.
   var STEPS = [
     { n: '00', title: 'Ready', text: 'One sequin waits at the base of the magazine, lined up with the needle’s own axis.', actor: 'none yet', needleY: 0, rot: 0, seqX: 0, seqY: 108, seqT: 'none' },
-    { n: '01', title: 'Drop', text: 'The escapement releases a single sequin. It falls along the needle’s axis and lands on the fabric, right under the needle.', actor: 'escapement servo', needleY: 0, rot: 0, seqX: 0, seqY: 224, seqT: 'transform 650ms cubic-bezier(0.55, 0, 1, 0.45)' },
+    { n: '01', title: 'Drop', text: 'The escapement releases a single sequin. It falls along the needle’s axis and lands on the fabric, right under the needle.', actor: 'the two escapement servos', needleY: 0, rot: 0, seqX: 0, seqY: 224, seqT: 'transform 650ms cubic-bezier(0.55, 0, 1, 0.45)' },
     { n: '02', title: 'Pierce', text: 'The needle drives straight down through the sequin’s hole and the fabric. It has to enter vertically, or the fabric snags.', actor: 'Z-axis servo', needleY: 64, rot: 0, seqX: 0, seqY: 224, seqT: 'transform 600ms ease' },
     { n: '03', title: 'Rotate 180°', text: 'Below the fabric, the needle turns half a revolution so the hook catches the thread.', actor: 'rotation servo', needleY: 64, rot: 180, seqX: 0, seqY: 224, seqT: 'transform 600ms ease' },
     { n: '04', title: 'Retract', text: 'The needle lifts back through the fabric, drawing up a loop of thread that holds the sequin in place.', actor: 'Z-axis servo', needleY: 0, rot: 180, seqX: 0, seqY: 224, seqT: 'transform 600ms ease' },
     { n: '05', title: 'Rotate back', text: 'The needle turns back to face A, ready to enter cleanly on the next stitch.', actor: 'rotation servo', needleY: 0, rot: 0, seqX: 0, seqY: 224, seqT: 'transform 600ms ease' },
-    { n: '06', title: 'Advance', text: 'The steppers move on by one stitch length, and the cycle starts again.', actor: 'X and Y steppers', needleY: 0, rot: 0, seqX: -56, seqY: 224, seqT: 'transform 600ms ease', showLength: true }
+    { n: '06', title: 'Advance', text: 'The steppers move on by one stitch length, and the cycle starts again.', actor: 'X-axis steppers', needleY: 0, rot: 0, seqX: -56, seqY: 224, seqT: 'transform 600ms ease', showLength: true }
   ];
 
   var needle = document.getElementById('needle');
@@ -76,60 +76,49 @@
     render(0);
   }
 
-  /* ---------- Parts checklist ---------- */
+  /* ---------- Test code: show each .ino file on the page ---------- */
 
-  var KEY = 'biostitched-parts';
-  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[data-part]'));
+  var codeBlocks = Array.prototype.slice.call(document.querySelectorAll('code[data-src]'));
+  var sources = {};
 
-  if (boxes.length) {
-    var progressText = document.getElementById('progress-text');
-    var progressBar = document.getElementById('progress-bar');
-    var progressTrack = progressBar ? progressBar.parentNode : null;
-    var clearBtn = document.getElementById('clear-ticks');
-    var groups = Array.prototype.slice.call(document.querySelectorAll('[data-group]'));
+  codeBlocks.forEach(function (block) {
+    var file = block.getAttribute('data-src');
+    fetch(file)
+      .then(function (res) { if (!res.ok) { throw new Error(res.status); } return res.text(); })
+      .then(function (text) { sources[file] = text; block.textContent = text; })
+      .catch(function () { block.textContent = 'Download ' + file + ' to see this sketch.'; });
+  });
 
-    var load = function () {
-      try { return JSON.parse(window.localStorage.getItem(KEY) || '{}') || {}; } catch (e) { return {}; }
-    };
-    var save = function (state) {
-      try { window.localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* storage unavailable */ }
-    };
-
-    var state = load();
-
-    var update = function () {
-      var ticked = boxes.filter(function (b) { return b.checked; }).length;
-      var pct = Math.round((ticked / boxes.length) * 100);
-      progressText.textContent = ticked + ' of ' + boxes.length + ' ticked';
-      progressBar.style.width = pct + '%';
-      if (progressTrack) { progressTrack.setAttribute('aria-valuenow', String(pct)); }
-      groups.forEach(function (g) {
-        var inGroup = Array.prototype.slice.call(g.querySelectorAll('input[data-part]'));
-        var done = inGroup.filter(function (b) { return b.checked; }).length;
-        var count = g.querySelector('[data-count]');
-        if (count) { count.textContent = done + ' of ' + inGroup.length; }
-      });
-    };
-
-    boxes.forEach(function (b) {
-      var id = b.getAttribute('data-part');
-      b.checked = !!state[id];
-      b.addEventListener('change', function () {
-        if (b.checked) { state[id] = true; } else { delete state[id]; }
-        save(state);
-        update();
-      });
+  Array.prototype.slice.call(document.querySelectorAll('[data-copy]')).forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = sources[btn.getAttribute('data-copy')];
+      if (!text || !navigator.clipboard) { btn.textContent = 'Copy unavailable: use Download'; return; }
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = 'Copy code'; }, 2000);
+      }, function () { btn.textContent = 'Copy unavailable: use Download'; });
     });
+  });
 
-    if (clearBtn) {
-      clearBtn.addEventListener('click', function () {
-        state = {};
-        save(state);
-        boxes.forEach(function (b) { b.checked = false; });
-        update();
-      });
-    }
+  /* ---------- Open blog: point the links at this repository's Discussions ---------- */
 
-    update();
+  // On GitHub Pages the address is USERNAME.github.io/REPOSITORY/, so the links can be
+  // worked out automatically, even after a username change.
+  var host = window.location.hostname.toLowerCase();
+  if (/\.github\.io$/.test(host)) {
+    var owner = host.slice(0, -'.github.io'.length);
+    var firstPart = window.location.pathname.split('/').filter(Boolean)[0];
+    var repo = firstPart && !/\.html?$/i.test(firstPart) ? firstPart : owner + '.github.io';
+    var base = 'https://github.com/' + owner + '/' + repo + '/discussions';
+    Array.prototype.slice.call(document.querySelectorAll('[data-gh="new"]')).forEach(function (a) {
+      a.href = base + '/new?category=show-and-tell';
+    });
+    Array.prototype.slice.call(document.querySelectorAll('[data-gh="list"]')).forEach(function (a) {
+      a.href = base;
+    });
   }
+
+  // Once the giscus script is pasted in, hide the "not connected yet" line.
+  var empty = document.getElementById('comments-empty');
+  if (empty && document.querySelector('script[src*="giscus.app"]')) { empty.hidden = true; }
 })();

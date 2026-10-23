@@ -4,34 +4,40 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BioStitched Builder’s Guide</title>
-<meta name="description" content="BioStitched is a small, open-source CNC machine that automates tambour embroidery for designers who make in small batches. The Builder’s Guide covers the parts, files, steps and code.">
+<meta name="description" content="BioStitched is a small open-source computer numerical control machine that automates tambour embroidery. The Builder’s Guide covers everything you need to build your own prototype.">
 <meta name="theme-color" content="#FFFFFF">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cellipse cx='32' cy='32' rx='26' ry='12' fill='%23F7E8EA' stroke='%23A3162B' stroke-width='5'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%23A3162B'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="site-header">
-  <div class="wrap">
+  <div class="wrap header-top">
     <a class="brand" href="#top">
       <span class="brand-name">BioStitched</span>
       <span class="brand-sub">Builder’s Guide</span>
     </a>
-    <nav class="site-nav" aria-label="Sections">
+    <a class="btn btn--small" href="#guide">Open the guide</a>
+  </div>
+  <nav class="site-nav" aria-label="Sections">
+    <div class="wrap">
       <ul>
+        <li><a href="#tambour">Tambour</a></li>
         <li><a href="#machine">The machine</a></li>
+        <li><a href="#embellishments">Embellishments</a></li>
         <li><a href="#guide">Guide</a></li>
+        <li><a href="#code">Test code</a></li>
         <li><a href="#parts">Parts</a></li>
         <li><a href="#files">Files</a></li>
+        <li><a href="#blog">Blog</a></li>
         <li><a href="#about">About</a></li>
-        <li><a class="btn btn--small" href="#guide">Open the guide</a></li>
       </ul>
-    </nav>
-  </div>
+    </div>
+  </nav>
 </header>
 
 <main id="main">
@@ -41,17 +47,17 @@
     <div class="wrap">
       <div class="hero-copy">
         <h1>Build the machine that stitches the sequins.</h1>
-        <p>BioStitched is a small, open-source CNC machine that automates tambour embroidery, the couture hand technique behind sequinned eveningwear, for designers who make in small batches. This guide covers everything you need to build one, change it and share what you learn.</p>
+        <p>BioStitched is a small open-source computer numerical control machine that automates tambour embroidery. A couture hand technique used by trained embroiderers in order to embellish surfaces and textiles with different embellishments in eveningwear. This guide covers everything you need in order to build your own prototype. Give it a try. Change it. Share what you learn in the <a href="#blog">open blog</a>.</p>
         <div class="actions">
           <a class="btn btn--lg" href="#guide">Open the guide</a>
-          <a class="link" href="#parts">See the parts list</a>
+          <a class="link" href="#blog">Read the open blog</a>
         </div>
       </div>
       <figure>
-        <div class="graph">
-          <img src="sketch-top.png" width="1200" height="912" alt="Line drawing of the needle carriage on two guide rods, with the lead screw and stepper motor running to the right, seen from above">
+        <div class="frame">
+          <img src="prototype-2-render.png" width="1600" height="435" alt="Line drawing of Prototype II: a gantry spanning two guide rods on a base plate, with the needle carriage on the gantry">
         </div>
-        <figcaption><span>Fig. 1. Top view without the frame</span><span>Prototype I technical sketch</span></figcaption>
+        <figcaption><span>Fig. 1. Prototype II, line drawing from the 3D render</span><span>Work in progress</span></figcaption>
       </figure>
     </div>
   </section>
@@ -89,16 +95,75 @@
     </div>
   </section>
 
+  <!-- ===== What is tambour embroidery ===== -->
+  <section class="section" id="tambour" aria-labelledby="tambour-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="tambour-title">What is tambour embroidery?</h2>
+        <p class="lead">Tambour embroidery is a chain stitch made with a fine hook. The fabric is stretched tight on a frame, the hook pierces it from above, catches the thread underneath and pulls a loop back up. Each new loop locks the one before it, so one continuous thread forms the whole line.</p>
+        <p class="lead">It grew out of ari work, a hooked chain stitch practised in India for centuries, and reached Europe in the 18th century, where it took the French name tambour, meaning drum, after the round frame that holds the fabric taut. In the 19th century, embroiderers in Lunéville, France, began attaching beads and sequins with the hook from the back of the fabric. Couture ateliers still work this way, which is why tambour sits behind so much beaded and sequinned eveningwear.</p>
+      </div>
+      <!-- To use your own photo, replace a whole <div class="ph">…</div> block with:
+           <div class="frame"><img src="your-photo.jpg" alt="Describe the photo"></div> -->
+      <div class="examples">
+        <figure class="example">
+          <div class="ph"><svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<rect width="400" height="260" fill="#F5F3F0"/>
+<rect x="40" y="204" width="320" height="12" fill="#E9E2D8" stroke="#1C1A19" stroke-width="1.5"/>
+<path d="M60 238 C120 238 160 232 194 226" fill="none" stroke="#A3162B" stroke-width="2.2"/>
+<rect x="180" y="22" width="40" height="112" rx="12" fill="#FFFFFF" stroke="#1C1A19" stroke-width="2"/>
+<line x1="186" y1="48" x2="214" y2="48" stroke="#1C1A19" stroke-width="1"/>
+<line x1="186" y1="58" x2="214" y2="58" stroke="#1C1A19" stroke-width="1"/>
+<line x1="186" y1="68" x2="214" y2="68" stroke="#1C1A19" stroke-width="1"/>
+<rect x="188" y="134" width="24" height="20" fill="#E9E2D8" stroke="#1C1A19" stroke-width="2"/>
+<circle cx="200" cy="144" r="3.5" fill="#1C1A19"/>
+<line x1="200" y1="154" x2="200" y2="224" stroke="#1C1A19" stroke-width="3" stroke-linecap="round"/>
+<path d="M200 224 q0 7 -7 5" fill="none" stroke="#1C1A19" stroke-width="2.6" stroke-linecap="round"/>
+</svg><span class="ph-label" aria-hidden="true">PLACE HOLDER IMAGE, DEVELOPED USING CLAUDE, NOT MY IMAGE!</span></div>
+          <figcaption><strong>The hook</strong><span>A fine needle with a hook at its tip, held upright like a pen.</span></figcaption>
+        </figure>
+        <figure class="example">
+          <div class="ph"><svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<rect width="400" height="260" fill="#F5F3F0"/>
+<ellipse cx="200" cy="132" rx="152" ry="98" fill="none" stroke="#1C1A19" stroke-width="5"/>
+<ellipse cx="200" cy="132" rx="141" ry="89" fill="#FFFFFF" stroke="#1C1A19" stroke-width="1.5"/>
+<ellipse cx="105.0" cy="132.0" rx="9.5" ry="4.8" transform="rotate(48.4 105.0 132.0)" fill="none" stroke="#A3162B" stroke-width="2.4"/><ellipse cx="120.8" cy="149.0" rx="9.5" ry="4.8" transform="rotate(44.2 120.8 149.0)" fill="none" stroke="#A3162B" stroke-width="2.4"/><ellipse cx="136.7" cy="161.4" rx="9.5" ry="4.8" transform="rotate(29.3 136.7 161.4)" fill="none" stroke="#A3162B" stroke-width="2.4"/><ellipse cx="152.5" cy="166.0" rx="9.5" ry="4.8" transform="rotate(0.0 152.5 166.0)" fill="none" stroke="#A3162B" stroke-width="2.4"/><ellipse cx="168.3" cy="161.4" rx="9.5" ry="4.8" transform="rotate(-29.3 168.3 161.4)" fill="none" stroke="#A3162B" stroke-width="2.4"/><ellipse cx="184.2" cy="149.0" rx="9.5" ry="4.8" transform="rotate(-44.2 184.2 149.0)" fill="none" stroke="#A3162B" stroke-width="2.4"/><ellipse cx="200.0" cy="132.0" rx="9.5" ry="4.8" transform="rotate(-48.4 200.0 132.0)" fill="none" stroke="#A3162B" stroke-width="2.4"/><ellipse cx="215.8" cy="115.0" rx="9.5" ry="4.8" transform="rotate(-44.2 215.8 115.0)" fill="none" stroke="#A3162B" stroke-width="2.4"/><ellipse cx="231.7" cy="102.6" rx="9.5" ry="4.8" transform="rotate(-29.3 231.7 102.6)" fill="none" stroke="#A3162B" stroke-width="2.4"/><ellipse cx="247.5" cy="98.0" rx="9.5" ry="4.8" transform="rotate(-0.0 247.5 98.0)" fill="none" stroke="#A3162B" stroke-width="2.4"/><ellipse cx="263.3" cy="102.6" rx="9.5" ry="4.8" transform="rotate(29.3 263.3 102.6)" fill="none" stroke="#A3162B" stroke-width="2.4"/><ellipse cx="279.2" cy="115.0" rx="9.5" ry="4.8" transform="rotate(44.2 279.2 115.0)" fill="none" stroke="#A3162B" stroke-width="2.4"/><ellipse cx="295.0" cy="132.0" rx="9.5" ry="4.8" transform="rotate(48.4 295.0 132.0)" fill="none" stroke="#A3162B" stroke-width="2.4"/>
+</svg><span class="ph-label" aria-hidden="true">PLACE HOLDER IMAGE, DEVELOPED USING CLAUDE, NOT MY IMAGE!</span></div>
+          <figcaption><strong>The frame</strong><span>The fabric is stretched drum-tight, so the hook can pierce it cleanly.</span></figcaption>
+        </figure>
+        <figure class="example">
+          <div class="ph"><svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<rect width="400" height="260" fill="#F5F3F0"/>
+<rect x="20" y="56" width="360" height="148" fill="#FFFFFF" stroke="#1C1A19" stroke-width="1"/>
+<line x1="26" y1="56" x2="26" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="35" y1="56" x2="35" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="44" y1="56" x2="44" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="53" y1="56" x2="53" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="62" y1="56" x2="62" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="71" y1="56" x2="71" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="80" y1="56" x2="80" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="89" y1="56" x2="89" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="98" y1="56" x2="98" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="107" y1="56" x2="107" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="116" y1="56" x2="116" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="125" y1="56" x2="125" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="134" y1="56" x2="134" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="143" y1="56" x2="143" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="152" y1="56" x2="152" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="161" y1="56" x2="161" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="170" y1="56" x2="170" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="179" y1="56" x2="179" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="188" y1="56" x2="188" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="197" y1="56" x2="197" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="206" y1="56" x2="206" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="215" y1="56" x2="215" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="224" y1="56" x2="224" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="233" y1="56" x2="233" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="242" y1="56" x2="242" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="251" y1="56" x2="251" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="260" y1="56" x2="260" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="269" y1="56" x2="269" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="278" y1="56" x2="278" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="287" y1="56" x2="287" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="296" y1="56" x2="296" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="305" y1="56" x2="305" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="314" y1="56" x2="314" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="323" y1="56" x2="323" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="332" y1="56" x2="332" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="341" y1="56" x2="341" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="350" y1="56" x2="350" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="359" y1="56" x2="359" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="368" y1="56" x2="368" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="377" y1="56" x2="377" y2="204" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/>
+<path d="M48 130 C55.8 100 92.2 100 100 130 C92.2 160 55.8 160 48 130 Z" fill="none" stroke="#A3162B" stroke-width="3.2" stroke-linejoin="round"/><path d="M92 130 C99.8 100 136.2 100 144 130 C136.2 160 99.8 160 92 130 Z" fill="none" stroke="#A3162B" stroke-width="3.2" stroke-linejoin="round"/><path d="M136 130 C143.8 100 180.2 100 188 130 C180.2 160 143.8 160 136 130 Z" fill="none" stroke="#A3162B" stroke-width="3.2" stroke-linejoin="round"/><path d="M180 130 C187.8 100 224.2 100 232 130 C224.2 160 187.8 160 180 130 Z" fill="none" stroke="#A3162B" stroke-width="3.2" stroke-linejoin="round"/><path d="M224 130 C231.8 100 268.2 100 276 130 C268.2 160 231.8 160 224 130 Z" fill="none" stroke="#A3162B" stroke-width="3.2" stroke-linejoin="round"/><path d="M268 130 C275.8 100 312.2 100 320 130 C312.2 160 275.8 160 268 130 Z" fill="none" stroke="#A3162B" stroke-width="3.2" stroke-linejoin="round"/><path d="M312 130 C319.8 100 356.2 100 364 130 C356.2 160 319.8 160 312 130 Z" fill="none" stroke="#A3162B" stroke-width="3.2" stroke-linejoin="round"/>
+</svg><span class="ph-label" aria-hidden="true">PLACE HOLDER IMAGE, DEVELOPED USING CLAUDE, NOT MY IMAGE!</span></div>
+          <figcaption><strong>The chain stitch</strong><span>A line of loops, each one holding the next.</span></figcaption>
+        </figure>
+        <figure class="example">
+          <div class="ph"><svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<rect width="400" height="260" fill="#F5F3F0"/>
+<rect x="20" y="40" width="360" height="180" fill="#FFFFFF" stroke="#1C1A19" stroke-width="1"/>
+<line x1="26" y1="40" x2="26" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="35" y1="40" x2="35" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="44" y1="40" x2="44" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="53" y1="40" x2="53" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="62" y1="40" x2="62" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="71" y1="40" x2="71" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="80" y1="40" x2="80" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="89" y1="40" x2="89" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="98" y1="40" x2="98" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="107" y1="40" x2="107" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="116" y1="40" x2="116" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="125" y1="40" x2="125" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="134" y1="40" x2="134" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="143" y1="40" x2="143" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="152" y1="40" x2="152" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="161" y1="40" x2="161" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="170" y1="40" x2="170" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="179" y1="40" x2="179" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="188" y1="40" x2="188" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="197" y1="40" x2="197" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="206" y1="40" x2="206" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="215" y1="40" x2="215" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="224" y1="40" x2="224" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="233" y1="40" x2="233" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="242" y1="40" x2="242" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="251" y1="40" x2="251" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="260" y1="40" x2="260" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="269" y1="40" x2="269" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="278" y1="40" x2="278" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="287" y1="40" x2="287" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="296" y1="40" x2="296" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="305" y1="40" x2="305" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="314" y1="40" x2="314" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="323" y1="40" x2="323" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="332" y1="40" x2="332" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="341" y1="40" x2="341" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="350" y1="40" x2="350" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="359" y1="40" x2="359" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="368" y1="40" x2="368" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/><line x1="377" y1="40" x2="377" y2="220" stroke="#1C1A19" stroke-opacity="0.07" stroke-width="1"/>
+<line x1="50" y1="100" x2="350" y2="100" stroke="#A3162B" stroke-width="2" stroke-dasharray="5 5"/><circle cx="80" cy="100" r="25" fill="#F7E8EA" stroke="#A3162B" stroke-width="2"/><circle cx="80" cy="100" r="4" fill="#FFFFFF" stroke="#A3162B" stroke-width="1.5"/><circle cx="120" cy="100" r="25" fill="#F7E8EA" stroke="#A3162B" stroke-width="2"/><circle cx="120" cy="100" r="4" fill="#FFFFFF" stroke="#A3162B" stroke-width="1.5"/><circle cx="160" cy="100" r="25" fill="#F7E8EA" stroke="#A3162B" stroke-width="2"/><circle cx="160" cy="100" r="4" fill="#FFFFFF" stroke="#A3162B" stroke-width="1.5"/><circle cx="200" cy="100" r="25" fill="#F7E8EA" stroke="#A3162B" stroke-width="2"/><circle cx="200" cy="100" r="4" fill="#FFFFFF" stroke="#A3162B" stroke-width="1.5"/><circle cx="240" cy="100" r="25" fill="#F7E8EA" stroke="#A3162B" stroke-width="2"/><circle cx="240" cy="100" r="4" fill="#FFFFFF" stroke="#A3162B" stroke-width="1.5"/><circle cx="280" cy="100" r="25" fill="#F7E8EA" stroke="#A3162B" stroke-width="2"/><circle cx="280" cy="100" r="4" fill="#FFFFFF" stroke="#A3162B" stroke-width="1.5"/><circle cx="320" cy="100" r="25" fill="#F7E8EA" stroke="#A3162B" stroke-width="2"/><circle cx="320" cy="100" r="4" fill="#FFFFFF" stroke="#A3162B" stroke-width="1.5"/>
+<line x1="70" y1="160" x2="330" y2="160" stroke="#A3162B" stroke-width="2" stroke-dasharray="5 5"/><circle cx="100" cy="160" r="25" fill="#F7E8EA" stroke="#A3162B" stroke-width="2"/><circle cx="100" cy="160" r="4" fill="#FFFFFF" stroke="#A3162B" stroke-width="1.5"/><circle cx="140" cy="160" r="25" fill="#F7E8EA" stroke="#A3162B" stroke-width="2"/><circle cx="140" cy="160" r="4" fill="#FFFFFF" stroke="#A3162B" stroke-width="1.5"/><circle cx="180" cy="160" r="25" fill="#F7E8EA" stroke="#A3162B" stroke-width="2"/><circle cx="180" cy="160" r="4" fill="#FFFFFF" stroke="#A3162B" stroke-width="1.5"/><circle cx="220" cy="160" r="25" fill="#F7E8EA" stroke="#A3162B" stroke-width="2"/><circle cx="220" cy="160" r="4" fill="#FFFFFF" stroke="#A3162B" stroke-width="1.5"/><circle cx="260" cy="160" r="25" fill="#F7E8EA" stroke="#A3162B" stroke-width="2"/><circle cx="260" cy="160" r="4" fill="#FFFFFF" stroke="#A3162B" stroke-width="1.5"/><circle cx="300" cy="160" r="25" fill="#F7E8EA" stroke="#A3162B" stroke-width="2"/><circle cx="300" cy="160" r="4" fill="#FFFFFF" stroke="#A3162B" stroke-width="1.5"/>
+</svg><span class="ph-label" aria-hidden="true">PLACE HOLDER IMAGE, DEVELOPED USING CLAUDE, NOT MY IMAGE!</span></div>
+          <figcaption><strong>Sequins and beads</strong><span>Each loop catches one sequin, so rows overlap like scales.</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== The machine ===== -->
   <section class="section" id="machine" aria-labelledby="machine-title">
     <div class="wrap">
       <div class="section-head">
         <h2 id="machine-title">How it stitches</h2>
-        <p class="lead">Tambour embroidery is a chain stitch worked from above the fabric with a hooked needle. Prototype II breaks the hand movement into six machine steps. Step through them, or press play.</p>
+        <p class="lead">Prototype II breaks the hand movement into six machine steps. Step through them, or press play.</p>
       </div>
 
       <div class="cycle">
-        <div class="stage graph" aria-hidden="true">
+        <div class="stage graph ph" aria-hidden="true">
           <span class="stage-tag tag-title">Prototype II stitch cycle</span>
           <span class="stage-tag tag-scale">Diagram, not to scale</span>
           <div class="needle" id="needle">
@@ -120,6 +185,7 @@
           <div class="sq sq-live" id="sequin-live"></div>
           <div class="bracket" data-length hidden></div>
           <span class="bracket-label" data-length hidden>stitch length</span>
+          <span class="ph-label">PLACE HOLDER IMAGE, DEVELOPED USING CLAUDE, NOT MY IMAGE!</span>
         </div>
 
         <div class="step-panel">
@@ -145,27 +211,77 @@
         </div>
       </div>
 
-      <div class="figures">
-        <figure>
-          <div class="render"><img src="render-carriage.png" width="1088" height="544" loading="lazy" alt="Three Tinkercad renders of the needle carriage parts, including the servo mounts"></div>
-          <figcaption><span>Fig. 2. Needle carriage</span><span>Prototype I, Tinkercad render</span></figcaption>
+      <div class="machine-media">
+        <figure class="mechanism">
+          <div class="frame">
+            <img src="sequin-drop-mechanism.png" width="600" height="1040" loading="lazy" alt="Exploded line drawing of the automated sequin-dropping mechanism: a mounting bracket and plate, the needle, a gate, a disc and a square base">
+          </div>
+          <figcaption><span>Fig. 2. Automated sequin-dropping mechanism</span><span>Exploded line drawing</span></figcaption>
         </figure>
-        <figure>
-          <div class="render"><img src="render-side.png" width="1568" height="400" loading="lazy" alt="Tinkercad render of the machine from the side, showing the aluminium-profile frame and the gantry"></div>
-          <figcaption><span>Fig. 3. Side view</span><span>Prototype I, Tinkercad render</span></figcaption>
-        </figure>
+        <div class="spec-block">
+          <h3>Inside Prototype II</h3>
+          <dl class="spec">
+            <div><dt>Controller</dt><dd>Arduino Uno with CNC Shield V3</dd></div>
+            <div><dt>Motion</dt><dd>NEMA 17 stepper motors</dd></div>
+            <div><dt>Servos</dt><dd>MG996R and SG90 servos for the needle and the sequin drop</dd></div>
+            <div><dt>Power</dt><dd>12 V supply for the steppers, 5 V UBEC for the servos</dd></div>
+            <div><dt>Firmware</dt><dd>Arduino sketches using AccelStepper; GRBL</dd></div>
+            <div><dt>Design</dt><dd>Tinkercad, Fusion 360 and Ink/Stitch</dd></div>
+          </dl>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <div class="spec-block">
-        <h3>Inside Prototype II</h3>
-        <dl class="spec">
-          <div><dt>Controller</dt><dd>Arduino Uno with CNC Shield V3</dd></div>
-          <div><dt>Motion</dt><dd>NEMA 17 stepper motors</dd></div>
-          <div><dt>Servos</dt><dd>Two MG996R and one SG90</dd></div>
-          <div><dt>Power</dt><dd>12 V supply for the steppers, 5 V UBEC for the servos</dd></div>
-          <div><dt>Firmware</dt><dd>Arduino sketches using AccelStepper; GRBL</dd></div>
-          <div><dt>Design</dt><dd>Tinkercad, Fusion 360 and Ink/Stitch</dd></div>
-        </dl>
+  <!-- ===== Embellishments ===== -->
+  <section class="section section--panel" id="embellishments" aria-labelledby="emb-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="emb-title">Embellishments</h2>
+        <p class="lead">Sequins, charms and beads designed to be 3D-printed in PHA and stitched on by the machine. Preview images of some of the shapes are here to download now; the printable files will be added later.</p>
+      </div>
+      <figure class="emb-overview">
+        <div class="frame"><img src="embellishments-all.png" width="1100" height="936" loading="lazy" alt="3D render of embellishment shapes in development: pointed drops, squares, hexagons, rectangles, round sequins and round beads, each with a stitching hole"></div>
+        <figcaption><span>Fig. 3. Embellishment shapes in development</span><span>3D render</span></figcaption>
+      </figure>
+      <!-- When the real STL files are ready, upload them and point each button at the .stl file instead of the .png. -->
+      <div class="emb-grid">
+        <article class="emb-card">
+          <img src="emb-01-pointed-drop.png" width="600" height="600" loading="lazy" alt="Render of a long pointed drop with a hole at the top">
+          <h3>Pointed drop</h3>
+          <p class="when">STL file coming soon</p>
+          <a class="btn btn--ghost btn--small" href="emb-01-pointed-drop.png" download>Download preview</a>
+        </article>
+        <article class="emb-card">
+          <img src="emb-02-pointed-tag.png" width="600" height="600" loading="lazy" alt="Render of a wide pointed tag with a hole at the top">
+          <h3>Pointed tag</h3>
+          <p class="when">STL file coming soon</p>
+          <a class="btn btn--ghost btn--small" href="emb-02-pointed-tag.png" download>Download preview</a>
+        </article>
+        <article class="emb-card">
+          <img src="emb-03-square-inset.png" width="600" height="600" loading="lazy" alt="Render of a square sequin with a raised inset square">
+          <h3>Square with inset</h3>
+          <p class="when">STL file coming soon</p>
+          <a class="btn btn--ghost btn--small" href="emb-03-square-inset.png" download>Download preview</a>
+        </article>
+        <article class="emb-card">
+          <img src="emb-04-hexagon-inset.png" width="600" height="600" loading="lazy" alt="Render of a hexagonal sequin with an inset hexagon">
+          <h3>Hexagon with inset</h3>
+          <p class="when">STL file coming soon</p>
+          <a class="btn btn--ghost btn--small" href="emb-04-hexagon-inset.png" download>Download preview</a>
+        </article>
+        <article class="emb-card">
+          <img src="emb-05-round-sequin.png" width="600" height="600" loading="lazy" alt="Render of a flat round sequin with a hole near the edge">
+          <h3>Round sequin</h3>
+          <p class="when">STL file coming soon</p>
+          <a class="btn btn--ghost btn--small" href="emb-05-round-sequin.png" download>Download preview</a>
+        </article>
+        <article class="emb-card">
+          <img src="emb-06-round-bead.png" width="600" height="600" loading="lazy" alt="Render of a round bead with a central hole">
+          <h3>Round bead</h3>
+          <p class="when">STL file coming soon</p>
+          <a class="btn btn--ghost btn--small" href="emb-06-round-bead.png" download>Download preview</a>
+        </article>
       </div>
     </div>
   </section>
@@ -321,88 +437,60 @@
     </div>
   </section>
 
+  <!-- ===== Test code ===== -->
+  <section class="section" id="code" aria-labelledby="code-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="code-title">Test code</h2>
+        <p class="lead">Five Arduino sketches, each testing one part of the machine, in the order you build it. If something doesn’t move, you’ll know exactly where to look.</p>
+        <p class="note">Open a sketch in the Arduino IDE, choose Tools &gt; Board &gt; Arduino Uno and your port, then click Upload. Tests 2 and 5 need the AccelStepper library (Sketch &gt; Include Library &gt; Manage Libraries). Every pin number and angle is a starting point: tune them to your build.</p>
+      </div>
+      <div class="tests">
+        <details>
+          <summary><span class="ch-num">01</span><span><span class="ch-title">Flash test</span><span class="ch-desc">Checks the board, the USB cable and the Arduino IDE before anything else is connected.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <div class="test-body">
+            <div class="test-actions"><a class="btn btn--ghost btn--small" href="01_flash_test.ino" download>Download .ino</a><button class="text-btn" type="button" data-copy="01_flash_test.ino">Copy code</button></div>
+            <pre><code data-src="01_flash_test.ino">Loading…</code></pre>
+          </div>
+        </details>
+        <details>
+          <summary><span class="ch-num">02</span><span><span class="ch-title">Both X-axis motors</span><span class="ch-desc">Drives the two X-axis steppers together, so the gantry moves square.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <div class="test-body">
+            <div class="test-actions"><a class="btn btn--ghost btn--small" href="02_dual_x_axis.ino" download>Download .ino</a><button class="text-btn" type="button" data-copy="02_dual_x_axis.ino">Copy code</button></div>
+            <pre><code data-src="02_dual_x_axis.ino">Loading…</code></pre>
+          </div>
+        </details>
+        <details>
+          <summary><span class="ch-num">03</span><span><span class="ch-title">Sequin drop</span><span class="ch-desc">Two servos work the gates under the magazine to release one sequin at a time.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <div class="test-body">
+            <div class="test-actions"><a class="btn btn--ghost btn--small" href="03_sequin_drop_servos.ino" download>Download .ino</a><button class="text-btn" type="button" data-copy="03_sequin_drop_servos.ino">Copy code</button></div>
+            <pre><code data-src="03_sequin_drop_servos.ino">Loading…</code></pre>
+          </div>
+        </details>
+        <details>
+          <summary><span class="ch-num">04</span><span><span class="ch-title">Needle motion</span><span class="ch-desc">The Z servo pierces and retracts; the rotation servo turns the hook 180°.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <div class="test-body">
+            <div class="test-actions"><a class="btn btn--ghost btn--small" href="04_needle_servos.ino" download>Download .ino</a><button class="text-btn" type="button" data-copy="04_needle_servos.ino">Copy code</button></div>
+            <pre><code data-src="04_needle_servos.ino">Loading…</code></pre>
+          </div>
+        </details>
+        <details>
+          <summary><span class="ch-num">05</span><span><span class="ch-title">Full stitch cycle</span><span class="ch-desc">Puts tests 2 to 4 together: drop, pierce, rotate, retract, rotate back, advance.</span></span><span class="ch-toggle" aria-hidden="true"></span></summary>
+          <div class="test-body">
+            <div class="test-actions"><a class="btn btn--ghost btn--small" href="05_stitch_cycle.ino" download>Download .ino</a><button class="text-btn" type="button" data-copy="05_stitch_cycle.ino">Copy code</button></div>
+            <pre><code data-src="05_stitch_cycle.ino">Loading…</code></pre>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== Parts ===== -->
   <section class="section section--panel" id="parts" aria-labelledby="parts-title">
     <div class="wrap">
-      <div class="parts-head">
-        <div class="section-head">
-          <p class="label">Bill of materials</p>
-          <h2 id="parts-title">Everything that goes into the machine.</h2>
-          <p class="lead">Tick parts off as you collect them; your ticks are saved in this browser. Quantities and costs are being confirmed against the build, and a fully costed list, including tools and failed attempts, ships with the guide.</p>
-        </div>
-        <div class="progress">
-          <div class="progress-row"><span>Collected</span><strong id="progress-text">0 of 36 ticked</strong></div>
-          <div class="bar" role="progressbar" aria-label="Parts collected" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progress-bar"></span></div>
-          <button class="text-btn" type="button" id="clear-ticks">Clear ticks</button>
-        </div>
-      </div>
-
-      <div class="groups">
-        <section class="group" data-group aria-labelledby="g-frame">
-          <header><h3 id="g-frame">Frame and motion</h3><span class="count" data-count></span></header>
-          <ul>
-            <li><label><input type="checkbox" data-part="frame-0"><span><span class="part-name">Aluminium profile 2040</span><span class="part-spec">400 mm</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="frame-1"><span><span class="part-name">Aluminium profile 2080</span><span class="part-spec">600 mm</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="frame-2"><span><span class="part-name">Aluminium profile 2080</span><span class="part-spec">200 mm</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="frame-3"><span><span class="part-name">Slot nuts</span><span class="part-spec">for 20-series profile</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="frame-4"><span><span class="part-name">M5 bolts and nuts</span><span class="part-spec">assorted set</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="frame-5"><span><span class="part-name">Lead screw TR8x2</span><span class="part-spec">400 mm, cut to length</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="frame-6"><span><span class="part-name">Lead screw TR8x2</span><span class="part-spec">200 mm, cut to length</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="frame-7"><span><span class="part-name">Lead screw TR8x2</span><span class="part-spec">600 mm, cut to length</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="frame-8"><span><span class="part-name">Aluminium round rail, 16 mm</span><span class="part-spec">length to confirm</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="frame-9"><span><span class="part-name">Aluminium round rail, 16 mm</span><span class="part-spec">200 mm, cut</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="frame-10"><span><span class="part-name">Aluminium round rod, 12 mm</span><span class="part-spec">200 mm</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="frame-11"><span><span class="part-name">Linear bearings, 16 mm</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="frame-12"><span><span class="part-name">Linear bearings, 12 mm</span><span class="part-spec">21 mm OD, 30 mm long</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="frame-13"><span><span class="part-name">Ball bearings 608</span><span class="part-spec">8 × 22 × 7 mm, lead-screw end supports</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="frame-14"><span><span class="part-name">Shaft couplings</span><span class="part-spec">motor shaft to 8 mm lead screw; check the bore</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="frame-15"><span><span class="part-name">NEMA 17 stepper motor</span></span><span class="qty">×3</span></label></li>
-          </ul>
-        </section>
-
-        <section class="group" data-group aria-labelledby="g-elec">
-          <header><h3 id="g-elec">Electronics and power</h3><span class="count" data-count></span></header>
-          <ul>
-            <li><label><input type="checkbox" data-part="elec-0"><span><span class="part-name">Arduino Uno</span></span><span class="qty">×1</span></label></li>
-            <li><label><input type="checkbox" data-part="elec-1"><span><span class="part-name">CNC Shield V3</span></span><span class="qty">×1</span></label></li>
-            <li><label><input type="checkbox" data-part="elec-2"><span><span class="part-name">Stepper drivers</span><span class="part-spec">A4988 or TMC2208</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="elec-3"><span><span class="part-name">Power supply</span><span class="part-spec">12 V, 5 A, for the steppers</span></span><span class="qty">×1</span></label></li>
-            <li><label><input type="checkbox" data-part="elec-4"><span><span class="part-name">UBEC</span><span class="part-spec">5 V, for the servos</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="elec-5"><span><span class="part-name">Capacitors</span><span class="part-spec">across the servo power rails</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="elec-6"><span><span class="part-name">Wiring, jumpers and connectors</span><span class="part-spec">Dupont leads and extensions</span></span><span class="qty"></span></label></li>
-          </ul>
-        </section>
-
-        <section class="group" data-group aria-labelledby="g-needle">
-          <header><h3 id="g-needle">Needle carriage and servos</h3><span class="count" data-count></span></header>
-          <ul>
-            <li><label><input type="checkbox" data-part="needle-0"><span><span class="part-name">Servo MG996R</span></span><span class="qty">×2</span></label></li>
-            <li><label><input type="checkbox" data-part="needle-1"><span><span class="part-name">Servo SG90</span></span><span class="qty">×1</span></label></li>
-            <li><label><input type="checkbox" data-part="needle-2"><span><span class="part-name">Stepper 28BYJ-48 with ULN2003 driver</span><span class="part-spec">thread-wrap mechanism</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="needle-3"><span><span class="part-name">Tambour hook</span></span><span class="qty">×1</span></label></li>
-            <li><label><input type="checkbox" data-part="needle-4"><span><span class="part-name">Thread-wrap parts</span><span class="part-spec">belt, idler pulleys, disc tensioner</span></span><span class="qty"></span></label></li>
-          </ul>
-        </section>
-
-        <section class="group" data-group aria-labelledby="g-printed">
-          <header><h3 id="g-printed">Printed parts and embellishment feed</h3><span class="count" data-count></span></header>
-          <ul>
-            <li><label><input type="checkbox" data-part="printed-0"><span><span class="part-name">3D-printed parts</span><span class="part-spec">full list in chapter 06</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="printed-1"><span><span class="part-name">Sequin magazine and escapement disc</span><span class="part-spec">printed</span></span><span class="qty"></span></label></li>
-          </ul>
-        </section>
-
-        <section class="group" data-group aria-labelledby="g-tools">
-          <header><h3 id="g-tools">Tools and software</h3><span class="count" data-count></span></header>
-          <ul>
-            <li><label><input type="checkbox" data-part="tools-0"><span><span class="part-name">3D printer</span><span class="part-spec">this build uses a Bambu Lab A1 mini</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="tools-1"><span><span class="part-name">Soldering kit</span><span class="part-spec">iron, solder and heat shrink</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="tools-2"><span><span class="part-name">Multimeter</span><span class="part-spec">for driver current and voltage checks</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="tools-3"><span><span class="part-name">Hand tools</span><span class="part-spec">screwdrivers, hex keys, wire strippers</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="tools-4"><span><span class="part-name">Filament</span><span class="part-spec">PLA for parts, PHA for embellishments</span></span><span class="qty"></span></label></li>
-            <li><label><input type="checkbox" data-part="tools-5"><span><span class="part-name">Software</span><span class="part-spec">Arduino IDE, AccelStepper, GRBL, Tinkercad, Inkscape with Ink/Stitch</span></span><span class="qty"></span></label></li>
-          </ul>
-        </section>
+      <div class="section-head">
+        <h2 id="parts-title">Bill of materials</h2>
+        <p class="soon">Will be updated soon.</p>
       </div>
     </div>
   </section>
@@ -412,35 +500,81 @@
     <div class="wrap">
       <div class="section-head">
         <h2 id="files-title">Download, print, adapt.</h2>
-        <p class="lead">Every file you need to build, run and modify the machine is published with version 1.0 of the guide.</p>
+        <p class="lead">Every file you need to build, run and modify the machine will be published here.</p>
       </div>
+      <p class="notice">This section still needs to be updated with the downloadable files. The download buttons will work once the files are uploaded.</p>
+      <!-- To switch a button on: upload the file to the repository, then change
+           <a class="btn btn--ghost btn--small is-disabled" aria-disabled="true">
+           to
+           <a class="btn btn--ghost btn--small" href="YOUR-FILE-NAME" download> -->
       <div class="files">
         <article class="file">
           <div class="tags"><span class="tag">PDF</span></div>
           <h3>Builder’s Guide</h3>
           <p>All fifteen chapters in one file, for printing or reading offline.</p>
-          <p class="when">Available with v1.0, [DATE]</p>
+          <a class="btn btn--ghost btn--small is-disabled" aria-disabled="true">Download coming soon</a>
         </article>
         <article class="file">
           <div class="tags"><span class="tag">STL</span><span class="tag">STEP</span></div>
           <h3>3D-printable parts</h3>
           <p>Every printed part, as STL files for slicing and STEP files for editing.</p>
-          <p class="when">Available with v1.0, [DATE]</p>
+          <a class="btn btn--ghost btn--small is-disabled" aria-disabled="true">Download coming soon</a>
+        </article>
+        <article class="file">
+          <div class="tags"><span class="tag">STL</span></div>
+          <h3>Embellishments</h3>
+          <p>The sequin, charm and bead shapes, ready to print in PHA.</p>
+          <a class="btn btn--ghost btn--small is-disabled" aria-disabled="true">Download coming soon</a>
         </article>
         <article class="file">
           <div class="tags"><span class="tag">INO</span></div>
-          <h3>Arduino code</h3>
-          <p>Sketches for the stitch cycle, stepper moves and servo timing.</p>
-          <p class="when">Available with v1.0, [DATE]</p>
+          <h3>Arduino test code</h3>
+          <p>Five sketches for testing the board, motors, servos and the full stitch cycle.</p>
+          <a class="btn btn--ghost btn--small" href="#code">See the test code</a>
         </article>
         <article class="file">
           <div class="tags"><span class="tag">SVG</span><span class="tag">G-CODE</span></div>
           <h3>Example designs</h3>
           <p>Test patterns as Ink/Stitch files and ready-to-run G-code.</p>
-          <p class="when">Available with v1.0, [DATE]</p>
+          <a class="btn btn--ghost btn--small is-disabled" aria-disabled="true">Download coming soon</a>
         </article>
       </div>
       <p class="licences"><strong>Licences</strong><span>Hardware: [LICENCE]</span><span>Guide: [LICENCE]</span><span>Code: [LICENCE]</span></p>
+    </div>
+  </section>
+
+  <!-- ===== Open blog ===== -->
+  <section class="section section--panel" id="blog" aria-labelledby="blog-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="blog-title">The open blog</h2>
+        <p class="lead">Built a BioStitched machine, changed one, or got stuck? Share it here: tips, comments, photos, videos and code from your own prototype. Every post helps the next builder.</p>
+      </div>
+      <div class="blog-grid">
+        <div class="blog-card">
+          <h3>Share your build</h3>
+          <p>Posts live in the project’s build log on GitHub, where you can attach photos, videos and code, and anyone can reply. You’ll need a free GitHub account.</p>
+          <div class="actions">
+            <a class="btn" data-gh="new" href="https://github.com/YOUR-USERNAME/Biostitched/discussions/new?category=show-and-tell">Write a post</a>
+            <a class="link" data-gh="list" href="https://github.com/YOUR-USERNAME/Biostitched/discussions">Read the build log</a>
+          </div>
+        </div>
+        <div class="blog-card">
+          <h3>What to post</h3>
+          <ul>
+            <li><strong>Photos and videos</strong> of your machine, swatches and embellishments</li>
+            <li><strong>Code</strong> you changed, and what it fixed</li>
+            <li><strong>Tips and fixes</strong> for problems you hit while building</li>
+            <li><strong>Materials</strong> you tried, and how they behaved</li>
+          </ul>
+        </div>
+      </div>
+      <div class="comments">
+        <h3>Latest from builders</h3>
+        <div class="giscus"></div>
+        <p class="comments-empty" id="comments-empty">Posts will appear here once the blog is connected. Until then, share yours in the build log.</p>
+        <!-- GISCUS: paste the <script> from giscus.app on the line below. -->
+      </div>
     </div>
   </section>
 
@@ -471,7 +605,7 @@
         </div>
         <div>
           <h3>Can I change it and share it?</h3>
-          <p>Yes, that’s the point. Adapt the machine to your own practice, then share what you changed so the next builder starts further ahead.</p>
+          <p>Yes, that’s the point. Adapt the machine to your own practice, then share what you changed in the open blog so the next builder starts further ahead.</p>
         </div>
       </div>
     </div>
