@@ -121,4 +121,12 @@
   // Once the giscus script is pasted in, hide the "not connected yet" line.
   var empty = document.getElementById('comments-empty');
   if (empty && document.querySelector('script[src*="giscus.app"]')) { empty.hidden = true; }
+  /* ---------- Back to top ---------- */
+
+  var toTop = document.querySelector('.to-top');
+  if (toTop) {
+    var showToTop = function () { toTop.classList.toggle('is-visible', window.scrollY > 600); };
+    window.addEventListener('scroll', showToTop, { passive: true });
+    showToTop();
+  }
 })();
